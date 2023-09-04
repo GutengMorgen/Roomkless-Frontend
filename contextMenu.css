@@ -1,32 +1,62 @@
-.context_menu_th {
+#context_menu_th {
     position: absolute;
     z-index: 20;
-    background-color: #e9e9e9;
+    background-color: hsl(0, 0%, 91%, 70%);
     padding: 10px;
     border: 1px solid #8f8f8f;
-    border-radius: 5px;
+    border-radius: 4px;
     display: none;
     top: 0px;
     left: 0px;
 }
 
-.context_menu_th button {
-    padding: 3px;
+#context_menu_th div {
+    width: 175px;
+    height: 65px;
+    /* border: 2px solid black; */
+    position: absolute;
+    background: transparent;
+    top: -13px;
+    left: -15px;
 }
 
-.context_menu_td {
+#context_menu_th button {
+    background-color: hsla(0, 0%, 85%, 0.4);
+    border: 1px solid rgb(92, 92, 92);
+    border-radius: 4px;
+    padding: 3px;
+    position: relative;
+    z-index: 1;
+}
+
+#context_menu_td {
     position: absolute;
     z-index: 20;
-    background-color: #e9e9e9;
+    background-color: hsl(0, 0%, 91%, 70%);
     padding: 10px;
     border: 1px solid #8f8f8f;
-    border-radius: 5px;
+    border-radius: 4px;
     display: none;
     grid-gap: 10px;
     top: 0px;
     left: 0px;
 }
 
-.context_menu_td button {
+#context_menu_td button {
+    background-color: hsla(0, 0%, 85%, 0.4);
+    border: 1px solid rgb(92, 92, 92);
+    border-radius: 4px;
     padding: 3px;
+    position: relative;
+    z-index: 1;
+}
+
+#context_menu_td div {
+    width: 180px;
+    height: 130px;
+    /* border: 2px solid black; */
+    position: absolute;
+    background: transparent;
+    top: -13px;
+    left: -16px;
 }
