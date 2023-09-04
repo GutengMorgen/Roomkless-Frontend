@@ -18,21 +18,38 @@
         <div class="container">
             <div id="context_menu_th">
                 <button id="check_status">Check all status links</button>
-                <div id="margin_out"></div>
+                <div class="margin_out"></div>
             </div>
             <div id="context_menu_td">
                 <button id="edit_row">Edit row</button>
                 <button id="delete_row">Delete row</button>
                 <button id="get_info">Get more information</button>
-                <!-- <label for="name">New Name:</label>
-                <input type="text" name="name" id="name_text">
-                <label for="link">New Link:</label>
-                <input type="text" name="link" id="link_text">
-                <label for="note">Note:</label>
-                <textarea name="note" id="note_text" cols="30" rows="10"></textarea>
-                <button type="submit">submit</button> -->
-                <div id="margin_out"></div>
+                <div class="margin_out"></div>
             </div>
+            <div id="edit_layout">
+                <h2>EDITING ROW</h2>
+                <div id="i2">
+                    <p>
+                        <label for="name_text">New Name:</label>
+                    </p>
+                    <input type="text" name="name" id="name_text">
+                </div>
+                <div id="i3">
+                    <p>
+                        <label for="link_text">New Link:</label>
+                    </p>
+                    <input type="url" name="link" id="link_text">
+                </div>
+                <div id="i4">
+                    <p>
+                        <label for="note_text">Note:</label>
+                    </p>
+                    <textarea name="note" id="note_text" rows="5"></textarea>
+                </div>
+                <button id="cancel_edit_btn">Cancel</button>
+                <button type="submit" id="submit_edit_btn">Submit</button>
+            </div>
+            <div id="margin_edit_out"></div>
             <table class="category">
                 <thead>
                     <tr class="cat">

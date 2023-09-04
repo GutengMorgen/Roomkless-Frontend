@@ -60,3 +60,85 @@
     top: -13px;
     left: -16px;
 }
+
+/*
+estilos para el div de editar row
+*/
+
+#edit_layout {
+    z-index: 2;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40em;
+    grid-template-columns: 30%;
+    grid-gap: 1em;
+    padding: 1em;
+    background-color: rgb(247, 243, 208);
+    font-family: system-ui;
+    font-size: small;
+    grid-template-areas:
+        "i1 i1"
+        "i2 i3"
+        "i4 i4"
+        "i5 i5";
+}
+
+#edit_layout h2 {
+    grid-area: i1;
+    text-align: center;
+}
+
+#i2 {
+    grid-area: i2;
+}
+
+#i2 input{
+    width: -webkit-fill-available;
+    padding: 5px;
+}
+
+#i3 {
+    grid-area: i3;
+}
+
+#i3 input{
+    width: -webkit-fill-available;
+    padding: 5px;
+}
+
+#i4 {
+    grid-area: i4;
+}
+
+#i4 textarea {
+    width: -webkit-fill-available;
+    padding: 5px;
+    resize: vertical;
+}
+
+#submit_edit_btn {
+    grid-area: i5;
+    height: 3em;
+}
+
+#cancel_edit_btn {
+    position: absolute;
+    margin: 10px;
+    top: 0;
+    right: 0;
+    height: 2em;
+}
+
+#margin_edit_out {
+    z-index: 1;
+    display: none;
+    background: #000000d9;
+    width: 150%;
+    height: 150%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

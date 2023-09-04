@@ -73,3 +73,7 @@ tr > td:nth-child(2){
 tr > td:last-child{
     width: 0;
 }
+
+button {
+    cursor: pointer;
+}
