@@ -1,0 +1,32 @@
+.context_menu_th {
+    position: absolute;
+    z-index: 20;
+    background-color: #e9e9e9;
+    padding: 10px;
+    border: 1px solid #8f8f8f;
+    border-radius: 5px;
+    display: none;
+    top: 0px;
+    left: 0px;
+}
+
+.context_menu_th button {
+    padding: 3px;
+}
+
+.context_menu_td {
+    position: absolute;
+    z-index: 20;
+    background-color: #e9e9e9;
+    padding: 10px;
+    border: 1px solid #8f8f8f;
+    border-radius: 5px;
+    display: none;
+    grid-gap: 10px;
+    top: 0px;
+    left: 0px;
+}
+
+.context_menu_td button {
+    padding: 3px;
+}

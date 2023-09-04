@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./contextMenu.css">
+    <title>Roomless</title>
+</head>
+<body>
+    <header>ROOMKLESS</header>
+    <main>
+        <div class="crud">
+            <button>create a new category</button>
+            <button>update a category</button>
+            <button>delete a category</button>
+        </div>
+        <div class="container">
+            <div id="context_menu_th">
+                <button id="check_status">Check all status links</button>
+            </div>
+            <div id="context_menu_td">
+                <button id="edit_row">Edit row</button>
+                <button id="delete_row">Delete row</button>
+                <button id="get_info">Get more information</button>
+                <!-- <label for="name">New Name:</label>
+                <input type="text" name="name" id="name_text">
+                <label for="link">New Link:</label>
+                <input type="text" name="link" id="link_text">
+                <label for="note">Note:</label>
+                <textarea name="note" id="note_text" cols="30" rows="10"></textarea>
+                <button type="submit">submit</button> -->
+            </div>
+            <table class="category">
+                <thead>
+                    <tr class="cat">
+                        <th colspan="3">BULLSHIT</th>
+                    </tr>
+                </thead>
+                <thead>
+                  <tr class="subCat">
+                    <th>Name</th>
+                    <th>Link</th>
+                    <th>Status</th>
+                    <!-- <th>Note</th> -->
+                    <!-- <th>add date</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>youtube</td>
+                    <td>youtube.com</td>
+                    <td>200</td>
+                  </tr>
+                  <tr>
+                    <td>google</td>
+                    <td>google.com</td>
+                    <td>200</td>
+                  </tr>
+                </tbody>
+            </table>
+            <table class="category">
+                <thead>
+                    <tr class="cat">
+                        <th colspan="3">STUDY</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr class="subCat">
+                    <th>Name</th>
+                    <th>Link</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>khanacademy</td>
+                    <td>khanacademy.com</td>
+                    <td>200</td>
+                  </tr>
+                  <tr>
+                    <td>w3schools</td>
+                    <td>w3schools.com</td>
+                    <td>200</td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <script src="./references.js"></script>
+    <script src="./contexmenu.js"></script>
+</body>
+</html>
