@@ -25,10 +25,21 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  /* display: flex;
+  place-items: center; */
+  min-width: 100vw;
   min-height: 100vh;
+}
+
+header{
+  text-align: center;
+  color: white;
+  line-height: 3em;
+  user-select: none;
+  font-family: system-ui;
+  font-weight: bolder;
+  font-size: x-large;
+  background: rgb(23, 70, 162);
 }
 
 h1 {

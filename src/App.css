@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,28 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+
+/* #root{
+  min-width: 100vw;
+  min-height: calc(100vh - 3em);
+  display: grid;
+  grid-template-rows: min-content max-content;
+} */
+
+#container{
+  background-color: antiquewhite;
+  padding: 1em;
+}
+
+#root{
+  padding: 1em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1em;
+}
+
+table, th, td {
+  border: 1px solid black;
 }
