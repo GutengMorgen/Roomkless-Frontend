@@ -1,47 +1,81 @@
-import { useState, useEffect, MouseEventHandler } from 'react'
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
-import Table from './tableGenerator'
+import * as Table from './tableGenerator'
 import * as api from './Api'
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 
-// function HandleClick():JSX.Element {
-//   useEffect(() => {
-//     async function fetchLoadCat() {
-//       const fetch = await api.loadCategorias();
-//       console.log(fetch);
-//     }
+const sizeItems = 1;
+// let page = 0;
+const limitPage = 2;
+const size = 1;
 
-//     fetchLoadCat();
-//   }, [])
-//   // console.log("e");
-//   return (
-//     <div>hello</div>
-//   )
-// }
+/*function App() {
+  const [lastPage, setLastPage] = useState<boolean | undefined>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
-function App() {
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  const [loadedContent, setLoadedContent] = React.useState<JSX.Element | null>(null);
 
-  // const [count, setCount] = useState(0)
+  const handleLoad = async () => {
+    try {
+      const getPagination = await api.loadCategorias(currentPage); // Obtiene la paginación de categorías
+      const getLastPage = getPagination.last;
+      getLastPage == true ? setLastPage(getLastPage) : setCurrentPage(prevPage => prevPage + 1);
 
-  const handleButtonClick = async () => {
-    const fetchData = await api.loadCategorias();
-    const getContent = fetchData.content;
+      const getContent = getPagination.content; // Obtiene el content de la paginación: Array<Categoria>
+      const content = <Table.TableCategorias datos={getContent} />;
+      setLoadedContent(content); // Actualiza el estado con el contenido generado
+    } catch (error) {
+      console.log("Error al llamar a api.loadCategorias()", error);
+    }
+  };
 
-    console.log(getContent);
+  const handleButtonClick = () => {
+    handleLoad();
   };
 
   return (
     <>
-      <div id='container'>
-        <Table/>
+      <div id='container' ref={containerRef}>
+        <Table.TableGenerator/>
+        {loadedContent}
       </div>
       <div id='footer'>
-        <button onClick={handleButtonClick}>Load More...</button>
+        <button onClick={handleButtonClick} disabled={lastPage}>Load More</button>
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;*/
+
+import { createRoot } from 'react-dom/client';
+
+const App: React.FC = () => {
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
+
+  const agregarDiv = () => {
+    // const nuevoDiv = React.createElement('div', { className: 'mi-div' }, 'Nuevo Div');
+    const nuevoDiv = <div>nuevo elemento</div>;
+    
+    // if (containerRef.current) {
+    //   ReactDOM.render(nuevoDiv, containerRef.current);
+    // }
+    const parent = containerRef.current;
+    const root = createRoot(parent!);
+    root.render(nuevoDiv);
+    
+  };
+
+  return (
+    <div>
+      <h1>Botón para Agregar Divs</h1>
+      <button onClick={agregarDiv}>Agregar Div</button>
+      <div className="container" ref={containerRef}></div>
+    </div>
+  );
+};
+
+export default App;

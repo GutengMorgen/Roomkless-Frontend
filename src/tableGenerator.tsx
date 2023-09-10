@@ -23,20 +23,56 @@ interface Categoria {
     visibilidad: boolean;
 }
 
-// function getJson(){
-//     const getJson = await api.loadCategorias();
-//     const getContent = getJson.content;
+async function handleConsulta(): Promise<Categoria[] | undefined> {
+    try {
+        const getPagination = await api.consulta(); //obtiene la paginación de categorías
+        const getContent = getPagination.content; //obtiene el content de la paginación: Array<Categoria>
+        // console.log(getContent);
+        console.log(getPagination);
+        // console.log(getPagination.last);
+        return getContent;
+    } catch (error) {
+        console.log("Error al llamar a api.consulta()", error);
+    }
+}
 
-// }
-
-const handleConsulta = async () => {
-    const getJson = await api.consulta(); //obtiene la paginacion de categorias
-    const getContent = getJson.content; //obtiene el content de la paginacion: Array<Categoria>
-    console.log(getContent);
-};
 
 
-function TableItems(props: {datos: Array<Item>}){
+export function TableCategorias(props: {datos: Array<Categoria>}) {
+
+    // console.log(props.datos);
+    return(
+        props.datos.map((categoria: Categoria, index: number) => (
+            <table className='categorias' key={`${categoria.id}_${index}`}>
+                <thead>
+                    <tr>
+                        <th 
+                        colSpan={3}
+                        data-id={categoria.id}
+                        data-fecha-creacion={categoria.fecha_de_creacion}
+                        data-visibilidad={categoria.visibilidad}
+                        data-numero-items={categoria.numero_de_items}>
+                            {categoria.nombre}
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Link</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <TableItems datos={categoria.items}/>
+                <tfoot>
+                    <tr>
+                        <th colSpan={3}>Load more...</th>
+                    </tr>
+                </tfoot>
+            </table>
+        ))
+    );
+}
+
+export function TableItems(props: {datos: Array<Item>}){
     
     // console.log(props.datos);
     return(
@@ -60,58 +96,25 @@ function TableItems(props: {datos: Array<Item>}){
     );
 }
 
-export default function TableGenerator() {
-    const [myTable, setMyTable] = useState([]);
+export function TableGenerator() {
+    const [myTable, setMyTable] = useState<JSX.Element | null>(null); 
 
-    //STRICT MODE ELIMINADO PARA EVITAR LA DOBLE LLAMADA A LA API
     useEffect(() => {
-        async function fetchData() {
+        async function func() {
             try {
-                const consulta = await api.consulta();
-                const getContent = consulta.content;
-                // const getItems = consulta.content[0].items;
-                // console.log(getContent);
+                const datosConsulta = await handleConsulta();
+                if(datosConsulta == undefined) return;
 
-                const tables = getContent.map((categoria: Categoria, index: number) => (
-                    <table className='categorias' key={`${categoria.id}_${index}`}>
-                        <thead>
-                            <tr>
-                                <th 
-                                colSpan={3}
-                                data-id={categoria.id}
-                                data-fecha-creacion={categoria.fecha_de_creacion}
-                                data-visibilidad={categoria.visibilidad}
-                                data-numero-items={categoria.numero_de_items}>
-                                    {categoria.nombre}
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Link</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <TableItems datos={categoria.items}/>
-                        <tfoot>
-                            <tr>
-                                <th colSpan={3}>Load more...</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                ));
-
-                setMyTable(tables);
+                const table = <TableCategorias datos={datosConsulta}/>
+                setMyTable(table);
             } catch (error) {
-                console.error('Error:', error);
+                console.log(error);
             }
         }
-
-        fetchData();
-    }, []);
+        func();
+    }, [])
 
     return (
-        <>
-            {myTable}
-        </>
-    );
+        <>{myTable}</>
+    )
 }
