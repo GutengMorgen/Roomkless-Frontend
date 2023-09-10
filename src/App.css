@@ -50,17 +50,40 @@
 } */
 
 #container{
-  background-color: antiquewhite;
   padding: 1em;
-}
-
-#root{
-  padding: 1em;
+  /* background-color: antiquewhite; */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1em;
 }
 
+#root{
+  /* padding: 1em; */
+}
+
+#footer{
+  text-align: center;
+  padding-block: 1em;
+}
+
 table, th, td {
   border: 1px solid black;
+}
+
+
+/* --------------------FOR SCROLLBARs-------------------- */
+::-webkit-scrollbar
+{
+    width: 0px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-track
+{
+    border: 5px transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+    background-color: transparent;
 }
