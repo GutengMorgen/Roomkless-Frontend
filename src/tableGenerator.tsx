@@ -1,42 +1,6 @@
 import { useEffect, useState } from 'react';
 import * as api from './Api';
 
-interface Item {
-    id: number;
-    fecha_de_creacion: Date;
-    nombre: string;
-    link: string;
-    link_status: string;
-    descripcion: string;
-    visibilidad: boolean;
-    etiqueta: string;
-    visitas: number;
-    ultima_visita: Date;
-}
-
-interface Categoria {
-    items: Array<Item>;
-    numero_de_items: number;
-    fecha_de_creacion: Date;
-    id: string;
-    nombre: string;
-    visibilidad: boolean;
-}
-
-async function handleConsulta(): Promise<Categoria[] | undefined> {
-    try {
-        const getPagination = await api.consulta(); //obtiene la paginación de categorías
-        const getContent = getPagination.content; //obtiene el content de la paginación: Array<Categoria>
-        // console.log(getContent);
-        console.log(getPagination);
-        // console.log(getPagination.last);
-        return getContent;
-    } catch (error) {
-        console.log("Error al llamar a api.consulta()", error);
-    }
-}
-
-
 
 export function TableCategorias(props: {datos: Array<Categoria>}) {
 
@@ -96,20 +60,16 @@ export function TableItems(props: {datos: Array<Item>}){
     );
 }
 
-export function TableGenerator() {
+export function FirstLoad() {
     const [myTable, setMyTable] = useState<JSX.Element | null>(null); 
 
     useEffect(() => {
         async function func() {
-            try {
-                const datosConsulta = await handleConsulta();
-                if(datosConsulta == undefined) return;
+            const getContent = await api.handleConsulta();
+            // if(getContent == undefined) return;
 
-                const table = <TableCategorias datos={datosConsulta}/>
-                setMyTable(table);
-            } catch (error) {
-                console.log(error);
-            }
+            const table = <TableCategorias datos={getContent}/>
+            setMyTable(table);
         }
         func();
     }, [])

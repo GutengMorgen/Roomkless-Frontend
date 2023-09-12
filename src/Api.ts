@@ -1,3 +1,4 @@
+
 const BASE_CONSULTA_URL = "http://localhost:8080/roomkless/consulta?filter=false&items=true&";
 
 const sizeItems = 1;
@@ -23,7 +24,7 @@ export const consulta = async () => {
         // page++; //para cargar la nueva pagina en loadCategorias()
         return data;
     } catch (error) {
-        console.log("Error:", error);
+        console.log(`Error al intentar acceder a ${url}`, error);
     }
 };
 
@@ -39,6 +40,35 @@ export const loadCategorias = async (page: number) => {
         // interPage++; //obtener el numero de paginas y limitarlo
         return json;
     } catch (error) {
-        console.log("Error al llamar a la api", error);
+        console.log(`Error al intentar acceder a ${url}`, error);
+    }
+}
+
+//HANDLERS
+export async function handleConsulta(): Promise<Categoria[]> {
+    try {
+        const getPagination = await consulta(); //obtiene la paginación de categorías
+        const getContent = getPagination.content || []; //obtiene el content de la paginación: Array<Categoria>
+        // console.log(getContent);
+        // console.log(getPagination);
+        // console.log(getPagination.last);
+        return getContent;
+    } catch (error) {
+        console.log(`Error al intentar acceder a una propiedad de la paginacion del request`, error);
+        return [];
+    }
+}
+
+let page: number = 1;
+export async function HandleLoadConsulta() {
+    try {
+        const getPagination = await loadCategorias(page);
+        const getContent = getPagination.content;
+        const getLastPage = getPagination.last;
+        page++;
+        return {content: getContent, lastPage: getLastPage};
+    } catch (error) {
+        console.log(`Error al intentar acceder a una propiedad de la paginacion del request`, error);
+        return {};
     }
 }

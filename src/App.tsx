@@ -1,81 +1,79 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import reactLogo from './assets/react.svg'
 import './App.css'
-import * as Table from './tableGenerator'
+import * as Tables from './tableGenerator'
 import * as api from './Api'
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
 
-const sizeItems = 1;
-// let page = 0;
-const limitPage = 2;
-const size = 1;
 
-/*function App() {
-  const [lastPage, setLastPage] = useState<boolean | undefined>(false);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+export default function App() {
+  const [disabledBtn, setDisabledBtn] = useState<boolean>(false);
+  const [elements, setElements] = React.useState<JSX.Element[]>([]);
 
-  const containerRef = React.useRef<HTMLDivElement | null>(null);
-  const [loadedContent, setLoadedContent] = React.useState<JSX.Element | null>(null);
+  const handleButtonClick = async () => {
+    // if(disabledBtn) return; //por "asegurar" que no se llame a la api"
+    
+    const getPagination = await api.HandleLoadConsulta(); // Obtiene la paginación de categorías
+    
+    if (!getPagination.lastPage || !getPagination.content) return;
+    
+    const getContent = getPagination.content; // Obtiene el content de la paginación: Array<Categoria>
+    setDisabledBtn(getPagination.lastPage);
 
-  const handleLoad = async () => {
-    try {
-      const getPagination = await api.loadCategorias(currentPage); // Obtiene la paginación de categorías
-      const getLastPage = getPagination.last;
-      getLastPage == true ? setLastPage(getLastPage) : setCurrentPage(prevPage => prevPage + 1);
-
-      const getContent = getPagination.content; // Obtiene el content de la paginación: Array<Categoria>
-      const content = <Table.TableCategorias datos={getContent} />;
-      setLoadedContent(content); // Actualiza el estado con el contenido generado
-    } catch (error) {
-      console.log("Error al llamar a api.loadCategorias()", error);
-    }
+    const newElement = <Tables.TableCategorias key={elements.length} datos={getContent} />;
+    setElements([...elements, newElement]); // Actualiza el estado con el contenido generado
   };
 
-  const handleButtonClick = () => {
-    handleLoad();
-  };
 
   return (
     <>
-      <div id='container' ref={containerRef}>
-        <Table.TableGenerator/>
-        {loadedContent}
+      <div id='container'>
+        <Tables.FirstLoad/>
+        {elements}
       </div>
       <div id='footer'>
-        <button onClick={handleButtonClick} disabled={lastPage}>Load More</button>
+        <button onClick={handleButtonClick} disabled={disabledBtn}>Load More</button>
       </div>
     </>
   );
 }
 
-export default App;*/
 
-import { createRoot } from 'react-dom/client';
+
+
+/*
+const DynamicElement: React.FC<{ id: number }> = React.memo(({ id }) => {
+  return <div>New Element {id}</div>;
+});
 
 const App: React.FC = () => {
-  const containerRef = React.useRef<HTMLDivElement | null>(null);
+  // State to store the dynamically created element IDs
+  const [elementIds, setElementIds] = useState<number[]>([]);
 
-  const agregarDiv = () => {
-    // const nuevoDiv = React.createElement('div', { className: 'mi-div' }, 'Nuevo Div');
-    const nuevoDiv = <div>nuevo elemento</div>;
-    
-    // if (containerRef.current) {
-    //   ReactDOM.render(nuevoDiv, containerRef.current);
-    // }
-    const parent = containerRef.current;
-    const root = createRoot(parent!);
-    root.render(nuevoDiv);
-    
+  // Counter to generate unique element IDs
+  const [counter, setCounter] = useState<number>(0);
+
+  // Event handler for the button click
+  const handleButtonClick = () => {
+    // Generate a unique element ID
+    const newElementId = counter + 1;
+
+    // Append the new element ID to the existing IDs
+    setElementIds((prevIds) => [...prevIds, newElementId]);
+
+    // Update the counter
+    setCounter(newElementId);
   };
 
   return (
     <div>
-      <h1>Botón para Agregar Divs</h1>
-      <button onClick={agregarDiv}>Agregar Div</button>
-      <div className="container" ref={containerRef}></div>
+      <button onClick={handleButtonClick}>Add Element</button>
+      <div className="container">
+        {elementIds.map((id) => (
+          <DynamicElement key={id} id={id} />
+        ))}
+      </div>
     </div>
   );
 };
-
-export default App;
+*/
