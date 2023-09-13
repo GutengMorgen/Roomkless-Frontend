@@ -1,9 +1,11 @@
 
 const BASE_CONSULTA_URL = "http://localhost:8080/roomkless/consulta?filter=false&items=true&";
+// const BASE_CATEGORIA_URL = "http://localhost:8080/roomkless/categoria/";
+const BASE_ITEM_URL = "http://localhost:8080/roomkless/item/";
 
 const sizeItems = 1;
-// let page = 0;
-// const limitPage = 2;
+let CategoriaPage: number = 0;
+let ItemPage: number = 0;
 const size = 1;
 
 const confInit: RequestInit = {
@@ -21,28 +23,42 @@ export const consulta = async () => {
         if (!response.ok) throw new Error("Error en la solicitud");
 
         const data = await response.json();
-        // page++; //para cargar la nueva pagina en loadCategorias()
+        CategoriaPage = 1; //para cargar la nueva pagina en loadCategorias()
+        ItemPage = 1; //para cargar la nueva pagina en loadItems()
         return data;
     } catch (error) {
         console.log(`Error al intentar acceder a ${url}`, error);
     }
 };
 
-export const loadCategorias = async (page: number) => {
-    // let interPage = 1;
-    const url = BASE_CONSULTA_URL + `sizeItems=${sizeItems}&page=${page}&size=${size}`;
+export const loadCategorias = async (interPage: number) => {
+    const url = BASE_CONSULTA_URL + `sizeItems=${sizeItems}&page=${interPage}&size=${size}`;
 
     try {
         const response = await fetch(url, confInit);
         if (!response.ok) throw new Error("Error en la solicitud");
 
         const json = await response.json();
-        // interPage++; //obtener el numero de paginas y limitarlo
         return json;
     } catch (error) {
         console.log(`Error al intentar acceder a ${url}`, error);
     }
 }
+
+export const loadMoreItems = async (CategoriaID: number, interPage: number) => {
+    const url = BASE_ITEM_URL + `categorias/${CategoriaID}?page=${interPage}&size=${sizeItems}`;
+
+    try {
+        const response = await fetch(url, confInit);
+        if (!response.ok) throw new Error("Error en la solicitud");
+
+        const json = await response.json();
+        return json;
+    } catch (error) {
+        console.log(`Error al intentar acceder a ${url}`, error);
+    }
+}
+
 
 //HANDLERS
 export async function handleConsulta(): Promise<Categoria[]> {
@@ -59,16 +75,26 @@ export async function handleConsulta(): Promise<Categoria[]> {
     }
 }
 
-let page: number = 1;
-export async function HandleLoadConsulta() {
+export async function HandleLoadMoreCategorias() {
     try {
-        const getPagination = await loadCategorias(page);
+        const getPagination = await loadCategorias(CategoriaPage);
         const getContent = getPagination.content;
         const getLastPage = getPagination.last;
-        page++;
+        CategoriaPage++;
         return {content: getContent, lastPage: getLastPage};
     } catch (error) {
         console.log(`Error al intentar acceder a una propiedad de la paginacion del request`, error);
-        return {};
+    }
+}
+
+export async function HandleLoadMoreItems(CategoriaID: number) {
+    try {
+        const getPagination = await loadMoreItems(CategoriaID, ItemPage);
+        const getContent = getPagination.content;
+        const getLastPage = getPagination.last;
+        ItemPage++;
+        return {content: getContent, lastPage: getLastPage};
+    } catch (error) {
+        console.log(`Error al intentar acceder a una propiedad de la paginacion del request`, error);
     }
 }

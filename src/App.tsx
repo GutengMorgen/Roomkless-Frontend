@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import reactLogo from './assets/react.svg'
 import './App.css'
+import './customTable.css'
 import * as Tables from './tableGenerator'
 import * as api from './Api'
 import React, { useState } from 'react';
@@ -11,11 +12,9 @@ export default function App() {
   const [elements, setElements] = React.useState<JSX.Element[]>([]);
 
   const handleButtonClick = async () => {
-    // if(disabledBtn) return; //por "asegurar" que no se llame a la api"
+    const getPagination = await api.HandleLoadMoreCategorias(); // Obtiene la paginación de categorías
     
-    const getPagination = await api.HandleLoadConsulta(); // Obtiene la paginación de categorías
-    
-    if (!getPagination.lastPage || !getPagination.content) return;
+    if (getPagination == undefined) return;
     
     const getContent = getPagination.content; // Obtiene el content de la paginación: Array<Categoria>
     setDisabledBtn(getPagination.lastPage);
