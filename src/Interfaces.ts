@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Categoria {
     items: Array<Item>;
     numero_de_items: number;
@@ -20,4 +20,9 @@ interface Item {
     etiqueta: string;
     visitas: number;
     ultima_visita: Date;
+}
+
+interface DefaultProps {
+    menuPos: { top: number; left: number };
+    setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }

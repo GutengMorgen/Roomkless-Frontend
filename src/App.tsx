@@ -2,12 +2,17 @@
 // import reactLogo from './assets/react.svg'
 import './App.css'
 import './customTable.css'
+import './contextMenu.css'
 import * as Tables from './tableGenerator'
 import * as api from './Api'
 import React, { useState } from 'react';
+import * as contextMenu from './contextMenu.tsx';
 
 
 export default function App() {
+  const [menuVisible, setMenuVisible] = useState<boolean>(false);
+  const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
+
   const [disabledBtn, setDisabledBtn] = useState<boolean>(false);
   const [elements, setElements] = React.useState<JSX.Element[]>([]);
 
@@ -23,10 +28,27 @@ export default function App() {
     setElements([...elements, newElement]); // Actualiza el estado con el contenido generado
   };
 
+  const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
+      // console.log(event);
+      const target = event.target as HTMLElement;
+      if(target.className === "categoryName"){
+        event.preventDefault();
+        setMenuPos({ top: event.pageY, left: event.pageX });
+        setMenuVisible(true);
+      }
+      else if (target.parentElement?.className === "itemRow"){
+        event.preventDefault();
+        setMenuPos({ top: event.pageY, left: event.pageX });
+        setMenuVisible(true);
+      }
+  }
 
   return (
     <>
-      <div id='container'>
+      {menuVisible && <contextMenu.Default menuPos={menuPos} setMenuVisible={setMenuVisible} />}
+      <div id='container'
+        onContextMenu={handleContextMenu}
+      >
         <Tables.FirstLoad/>
         {elements}
       </div>
