@@ -12,6 +12,7 @@ import * as contextMenu from './contextMenu.tsx';
 export default function App() {
   const [menuVisible, setMenuVisible] = useState<boolean>(false);
   const [menuPos, setMenuPos] = useState({ top: 0, left: 0 });
+  const [target, setTarget] = useState<HTMLElement>();
 
   const [disabledBtn, setDisabledBtn] = useState<boolean>(false);
   const [elements, setElements] = React.useState<JSX.Element[]>([]);
@@ -29,23 +30,22 @@ export default function App() {
   };
 
   const handleContextMenu = (event: React.MouseEvent<HTMLDivElement>) => {
-      // console.log(event);
-      const target = event.target as HTMLElement;
-      if(target.className === "categoryName"){
-        event.preventDefault();
-        setMenuPos({ top: event.pageY, left: event.pageX });
-        setMenuVisible(true);
-      }
-      else if (target.parentElement?.className === "itemRow"){
-        event.preventDefault();
-        setMenuPos({ top: event.pageY, left: event.pageX });
-        setMenuVisible(true);
-      }
+    // event.preventDefault();
+    const target = event.target as HTMLElement;
+    const categoryElement = target.closest('.categoryName') as HTMLDivElement;
+    const itemRowElement = target.closest('.itemRow') as HTMLDivElement;
+  
+    if (categoryElement || itemRowElement) {
+      event.preventDefault();
+      setMenuPos({ top: event.pageY, left: event.pageX });
+      setMenuVisible(true);
+      setTarget(categoryElement || itemRowElement);
+    }  
   }
 
   return (
     <>
-      {menuVisible && <contextMenu.Default menuPos={menuPos} setMenuVisible={setMenuVisible} />}
+      {menuVisible && <contextMenu.Default menuPos={menuPos} setMenuVisible={setMenuVisible} target={target}/>}
       <div id='container'
         onContextMenu={handleContextMenu}
       >

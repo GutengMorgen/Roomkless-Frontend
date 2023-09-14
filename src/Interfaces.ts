@@ -25,4 +25,5 @@ interface Item {
 interface DefaultProps {
     menuPos: { top: number; left: number };
     setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    target: HTMLElement | undefined;
 }
