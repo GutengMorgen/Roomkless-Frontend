@@ -37,10 +37,27 @@
 .blank{
     position: absolute;
     z-index: 100;
-    top: 0;
-    left: 0;
-    background-color: black;
-    opacity: 80%;
+    top: 0 !important;
+    left: 0 !important;
+    background-color: hsl(0, 0%, 0%, 70%);
     width: 100vw;
     height: 100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+}
+
+.contentBlank {
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    background: rgb(32 32 32);
+    padding: 1em;
+    width: 40em;
+    /* height: 17em; */
+    gap: 1em;
+}
+
+#createTemplate{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }

@@ -63,8 +63,8 @@ export function TableItems(props: {datos: Array<Item>}){
                 //ponerlo desde categoria
                 // onContextMenu={contextMenu.itemsContextMenu}
                 > 
-                <span>{item.nombre}</span>
-                <span>{item.link}</span>
+                <span title={item.nombre}>{item.nombre}</span>
+                <span title={item.link}>{item.link}</span>
             </div>
         ))
     );

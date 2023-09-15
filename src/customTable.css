@@ -10,7 +10,8 @@
     line-height: 2em;
     font-family: system-ui;
     font-weight: bolder;
-    background: #4a004e;
+    background: #1746a2;
+    border: 1px solid #40609f;
     border-radius: 5px;
 }
 
@@ -37,9 +38,10 @@
 }
 
 .itemRow span{
-    background: rgb(0, 68, 68);
+    background: rgb(10 114 24);
+    border: 1px solid #0d850d;
     padding: 3px;
-    border-radius: 4px;
+    border-radius: 3px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;

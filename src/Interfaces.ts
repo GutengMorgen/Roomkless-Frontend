@@ -27,3 +27,8 @@ interface DefaultProps {
     setMenuVisible: React.Dispatch<React.SetStateAction<boolean>>;
     target: HTMLElement | undefined;
 }
+
+interface CI_Props {
+    setBlankVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setBlankElements: React.Dispatch<React.SetStateAction<React.JSX.Element | null>>
+}
